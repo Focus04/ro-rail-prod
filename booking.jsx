@@ -17,8 +17,8 @@ function BookingScreen({ train, user, onConfirm, goBack, seatStyle }) {
 
   const ticketTypes = [
     { id: "întreg", label: "Întreg", multiplier: 1 },
-    { id: "elev", label: "Elev", multiplier: 0.5 },
-    { id: "student", label: "Student", multiplier: 0.5 },
+    { id: "elev", label: "Elev", multiplier: 0 },
+    { id: "student", label: "Student", multiplier: 0.1 },
   ];
 
   const finalPrice = Math.round(train.price * (ticketTypes.find(t => t.id === pass.tip)?.multiplier || 1));
@@ -144,7 +144,7 @@ function BookingScreen({ train, user, onConfirm, goBack, seatStyle }) {
                     >
                       <div className="serif" style={{fontSize: 18}}>{tt.label}</div>
                       <div className="mono" style={{fontSize: 11, letterSpacing:".14em", textTransform:"uppercase", color:"var(--ink-3)", marginTop: 8}}>
-                        {tt.multiplier === 1 ? "preț integral" : "−50% reducere"}
+                        {tt.multiplier === 1 ? "preț integral" : tt.multiplier === 0 ? "−100% gratuit" : "−90% reducere"}
                       </div>
                       <div className="serif tabular" style={{fontSize: 16, marginTop: 14}}>
                         {Math.round(train.price * tt.multiplier)} <span style={{fontFamily:"var(--mono)", fontSize: 11}}>RON</span>
