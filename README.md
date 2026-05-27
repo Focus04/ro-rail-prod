@@ -86,6 +86,7 @@ PWEB/
 - **Node.js** - back end
 - **Express.js** - Robust REST API architecture
 - **MongoDB** - Non-Relational Database
+- **Railway** - Deployed at [https://rorail.up.railway.app/](https://rorail.up.railway.app/)
 
 ## Architecture note
 
