@@ -27,10 +27,10 @@ RoRail is a fully interactive single-page application covering all traveler and 
 
 ## Roles & Credentials
 
-| Role | Email | Password | Landing screen |
-|---|---|---|---|
-| Traveler | `andrei@rorail.ro` | `demo123` | Search (UC4) |
-| Manager | `manager@rorail.ro` | `manager123` | Manager dashboard (UC8–UC10) |
+| Role | Email | Landing screen |
+|---|---|---|
+| Traveler | `andrei@rorail.ro` | Search (UC4) |
+| Manager | `manager@rorail.ro` | Manager dashboard (UC8–UC10) |
 
 Any other email + any password (except `wrong`) also logs in as a traveler.
 
@@ -50,11 +50,10 @@ București Nord · Cluj-Napoca · Iași · Brașov · Constanța · Timișoara N
 Serve over HTTP so the scroll-video asset loads correctly:
 
 ```bash
-cd PWEB
 python -m http.server 8080
 ```
 
-Then open [http://localhost:8080/RoRail.html](http://localhost:8080/RoRail.html).
+Then open [http://localhost:8080/](http://localhost:8080/).
 
 Alternatively, open `RoRail.html` directly in a browser — all flows work except the scroll-controlled hero video (which requires HTTP for the `fetch()` call).
 
@@ -83,7 +82,10 @@ PWEB/
 - **React 18** via CDN (no build step)
 - **Babel Standalone** for in-browser JSX transpilation
 - **Inter** + **JetBrains Mono** from Google Fonts
-- Pure CSS — no framework
+- **Pure CSS** - no framework
+- **Node.js** - back end
+- **Express.js** - Robust REST API architecture
+- **MongoDB** - Non-Relational Database
 
 ## Architecture note
 
