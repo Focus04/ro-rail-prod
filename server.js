@@ -11,7 +11,9 @@ const Booking = require("./models/Booking");
 
 const app = express();
 app.use(express.json());
-app.use(express.static(path.join(__dirname))); // serve frontend files
+app.use(express.static(path.join(__dirname)));
+
+app.get('/', (req, res) => res.sendFile(path.join(__dirname, "RoRail.html")));
 
 // ── JWT middleware ────────────────────────────────────────────────────────────
 const auth = (req, res, next) => {
@@ -191,9 +193,7 @@ mongoose.connect(process.env.MONGO_URI)
   .then(async () => {
     console.log("✓ MongoDB connected");
     await seed();
-    app.listen(process.env.PORT, () =>
-      console.log(`✓ RoRail running → http://localhost:${process.env.PORT}/RoRail.html`)
-    );
+    app.listen(process.env.PORT, () => console.log(`✓ RoRail running → http://localhost:${process.env.PORT}/`));
   })
   .catch(err => {
     console.error("✗ MongoDB connection failed:", err.message);
