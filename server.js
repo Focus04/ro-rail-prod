@@ -5,13 +5,15 @@ const bcrypt   = require("bcryptjs");
 const jwt      = require("jsonwebtoken");
 const path     = require("path");
 
-const User    = require("./models/User");
-const Train   = require("./models/Train");
-const Booking = require("./models/Booking");
+const User     = require("./models/User");
+const Train    = require("./models/Train");
+const Booking  = require("./models/Booking");
 
 const app = express();
 app.use(express.json());
-app.use(express.static(path.join(__dirname))); // serve frontend files
+app.use(express.static(path.join(__dirname)));
+
+app.get('/', (req, res) => res.sendFile(path.join(__dirname, "RoRail.html")));
 
 // ── JWT middleware ────────────────────────────────────────────────────────────
 const auth = (req, res, next) => {
@@ -118,12 +120,12 @@ app.put("/api/bookings/:id/cancel", auth, async (req, res) => {
 // ── Seed ──────────────────────────────────────────────────────────────────────
 const INITIAL_TRAINS = [
   { id: "IR-1641", type: "IR",  from: "BUH", to: "CLJ", dep: "06:45", arr: "14:12", duration: "7h 27m", price: 142, stops: ["BUH","PLO","BVR","SBI","CLJ"], cars: 6, name: "Someșul" },
-  { id: "IC-583",  type: "IC",  from: "BUH", to: "CLJ", dep: "08:30", arr: "14:55", duration: "6h 25m", price: 189, stops: ["BUH","BVR","SBI","CLJ"],        cars: 5, name: "Transilvania" },
+  { id: "IC-583",  type: "IC",  from: "BUH", to: "CLJ", dep: "08:30", arr: "14:55", duration: "6h 25m", price: 189, stops: ["BUH","BVR","SBI","CLJ"],       cars: 5, name: "Transilvania" },
   { id: "IR-1745", type: "IR",  from: "BUH", to: "CLJ", dep: "13:10", arr: "21:02", duration: "7h 52m", price: 132, stops: ["BUH","PLO","BVR","SBI","CLJ"], cars: 7, name: "Apusenii" },
-  { id: "IRN-401", type: "IRN", from: "BUH", to: "CLJ", dep: "22:35", arr: "06:48", duration: "8h 13m", price: 118, stops: ["BUH","PLO","BVR","CLJ"],        cars: 8, name: "Nordul de noapte" },
+  { id: "IRN-401", type: "IRN", from: "BUH", to: "CLJ", dep: "22:35", arr: "06:48", duration: "8h 13m", price: 118, stops: ["BUH","PLO","BVR","CLJ"],       cars: 8, name: "Nordul de noapte" },
   { id: "IR-1622", type: "IR",  from: "BUH", to: "BVR", dep: "07:15", arr: "10:08", duration: "2h 53m", price: 67,  stops: ["BUH","PLO","BVR"],             cars: 5, name: "Carpații" },
   { id: "IC-562",  type: "IC",  from: "BUH", to: "CTA", dep: "09:00", arr: "11:24", duration: "2h 24m", price: 79,  stops: ["BUH","CTA"],                   cars: 4, name: "Marea Neagră" },
-  { id: "IR-1932", type: "IR",  from: "BUH", to: "IAS", dep: "07:40", arr: "14:55", duration: "7h 15m", price: 134, stops: ["BUH","PLO","SCV","IAS"],        cars: 6, name: "Moldova" },
+  { id: "IR-1932", type: "IR",  from: "BUH", to: "IAS", dep: "07:40", arr: "14:55", duration: "7h 15m", price: 134, stops: ["BUH","PLO","SCV","IAS"],       cars: 6, name: "Moldova" },
   { id: "IR-1833", type: "IR",  from: "CLJ", to: "TMS", dep: "08:15", arr: "13:48", duration: "5h 33m", price: 112, stops: ["CLJ","ORD","TMS"],             cars: 5, name: "Banatul" },
   { id: "R-2210",  type: "R",   from: "BUH", to: "BVR", dep: "10:45", arr: "14:22", duration: "3h 37m", price: 38,  stops: ["BUH","PLO","BVR"],             cars: 3, name: null },
 ];
@@ -191,9 +193,7 @@ mongoose.connect(process.env.MONGO_URI)
   .then(async () => {
     console.log("✓ MongoDB connected");
     await seed();
-    app.listen(process.env.PORT, () =>
-      console.log(`✓ RoRail running → http://localhost:${process.env.PORT}/RoRail.html`)
-    );
+    app.listen(process.env.PORT, () => console.log(`✓ RoRail running → http://localhost:${process.env.PORT}/`));
   })
   .catch(err => {
     console.error("✗ MongoDB connection failed:", err.message);
